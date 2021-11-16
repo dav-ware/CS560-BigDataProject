@@ -19,5 +19,4 @@ res=[]
 for i in range(1000):
     p = TextBlob(positive_tweets[i])
     
-print(res)
 
