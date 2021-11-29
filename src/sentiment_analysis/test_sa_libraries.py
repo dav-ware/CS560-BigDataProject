@@ -1,19 +1,19 @@
 import pandas as pd 
 import sa_util as util
-from textblob import TextBlob
 from nltk import NaiveBayesClassifier, classify
 import time
 import random
-from flair.models import TextClassifier
-from flair.data import Sentence
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+# from textblob import TextBlob
+# from flair.models import TextClassifier
+# from flair.data import Sentence
+# from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 
-with open('./test_tweet_sentiments_negative.csv', encoding = "ISO-8859-1") as tweet_sentiments:
+with open('datasets/test_tweet_sentiments_negative.csv', encoding = "ISO-8859-1") as tweet_sentiments:
     df_neg = pd.read_csv(tweet_sentiments)
     df_neg.columns = ['target', 'id', 'date', 'flag', 'user', 'text']
-with open('./test_tweet_sentiments_positive.csv', encoding = "ISO-8859-1") as tweet_sentiments:
+with open('datasets/test_tweet_sentiments_positive.csv', encoding = "ISO-8859-1") as tweet_sentiments:
     df_pos = pd.read_csv(tweet_sentiments)
     df_pos.columns = ['target', 'id', 'date', 'flag', 'user', 'text']
 raw_positive_tweets = df_pos['text'].head(50000).to_list()
@@ -137,7 +137,7 @@ res = nb_model.prob_classify_many(detupled_test_data)
 wrong_count = 0
 skip_count = 0
 
-for i in range(10000):
+for i in range(50000):
     if res[i].max() != correct_prediction[i]:
         if res[i].prob(res[i].max()) >= 0.9995:
             wrong_count += 1
@@ -145,7 +145,7 @@ for i in range(10000):
             skip_count += 1
 
 t2 = time.time()
-confident_accuracy = round((10000-skip_count-wrong_count)/(10000-skip_count)*100, 2)
+confident_accuracy = round((50000-skip_count-wrong_count)/(50000-skip_count)*100, 2)
 print(f'time to convert generator to list: {t1-t0}')
 print(f'time to do SA: {t2-t1}')
-print(f"accuracy using full dataset: {accuracy}%\nconfident accuracy: {confident_accuracy}% using {(10000-skip_count)/10000*100}% of dataset")
+print(f"accuracy using full dataset: {accuracy}%\nconfident accuracy: {confident_accuracy}% using {(50000-skip_count)/50000*100}% of dataset")
