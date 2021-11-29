@@ -10,10 +10,10 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 
 
-with open('./tweet_sentiments_negative.csv', encoding = "ISO-8859-1") as tweet_sentiments:
+with open('./test_tweet_sentiments_negative.csv', encoding = "ISO-8859-1") as tweet_sentiments:
     df_neg = pd.read_csv(tweet_sentiments)
     df_neg.columns = ['target', 'id', 'date', 'flag', 'user', 'text']
-with open('./tweet_sentiments_positive.csv', encoding = "ISO-8859-1") as tweet_sentiments:
+with open('./test_tweet_sentiments_positive.csv', encoding = "ISO-8859-1") as tweet_sentiments:
     df_pos = pd.read_csv(tweet_sentiments)
     df_pos.columns = ['target', 'id', 'date', 'flag', 'user', 'text']
 raw_positive_tweets = df_pos['text'].head(50000).to_list()
