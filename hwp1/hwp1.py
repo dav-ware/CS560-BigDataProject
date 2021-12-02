@@ -1,13 +1,14 @@
 import tweepy
 import csv
 import re, string
-from typing import List
+from typing import List, Text
 from os import environ
 from nltk.tokenize import TweetTokenizer
 from nltk.stem import PorterStemmer
 from nltk.tag import pos_tag
 from nltk.stem.wordnet import WordNetLemmatizer
 from nltk.corpus import stopwords
+from textblob import TextBlob
 
 
 
@@ -42,6 +43,7 @@ def main():
     for token_list in tokenized_tweets:
         lemmatized_tweets.append(lemmatize(token_list))
 
+    #h
     header = ['id', 'raw_text', 'clean_text', 'tokens', 'stemmed_tokens', 'lemmatized_tokens']
     rows = []
     for i in range(len(raw_tweets)):
@@ -57,6 +59,60 @@ def main():
         csv_writer = csv.writer(file)
         csv_writer.writerow(header)
         csv_writer.writerows(rows)
+
+    #i
+    token_set = set()
+    freq = {}
+    for token_list in lemmatized_tweets:
+        for token in token_list:
+            if token not in token_set:
+                token_set.add(token)
+                freq[token] = 1
+            else:
+                freq[token] += 1
+
+    freq_list = []
+    for key in freq.keys():
+        freq_list.append((key, freq[key]))
+
+    sorted_freq_list = sorted(freq_list, key = lambda x: x[1], reverse=True)
+    header = ['token', 'frequency']
+    rows = []
+    for i in sorted_freq_list:
+        row = []
+        row.append(i[0])
+        row.append(i[1])
+        rows.append(row)
+
+    with open('hwp1/frequency.csv', 'w', encoding='utf-8') as file: 
+        csv_writer = csv.writer(file)
+        csv_writer.writerow(header)
+        csv_writer.writerows(rows)
+
+    #j
+    sa = []
+    for tweet in clean_tweets:
+        tb = TextBlob(tweet).sentiment
+        sa.append((round(tb.polarity, 3), round(tb.subjectivity, 3)))
+    
+    header = ['id', 'clean_text', 'polarity', 'subjectivity']
+    rows = []
+    for i in range(len(sa)):
+        row = []
+        row.append(data[i+1][0])
+        row.append(clean_tweets[i])
+        row.append(sa[i][0])
+        row.append(sa[i][1])
+        rows.append(row)
+
+    with open('hwp1/sentiments.csv', 'w', encoding='utf-8') as file: 
+        csv_writer = csv.writer(file)
+        csv_writer.writerow(header)
+        csv_writer.writerows(rows)
+
+
+
+
 
 def get_tweets():
     auth = tweepy.AppAuthHandler(environ.get('TWITTER_API_KEY'), environ.get('TWITTER_API_SECRET'))
