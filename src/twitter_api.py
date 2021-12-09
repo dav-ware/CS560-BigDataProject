@@ -27,12 +27,12 @@ vaccine_query = 'vaccine OR "covid vaccine" OR pfizer OR moderna OR "booster sho
 trump_query = 'trump OR (trump covid) exclude:retweets'
 biden_query = 'biden OR (biden covid) exclude:retweets'
 
-for i in range(3, len(location_info)):
+for i in range(11, len(location_info)):
      complete = False
      while complete == False:
           try:
                print('cdc')
-               cdc_resp = tweepy.Cursor(api.search_tweets, cdc_query, lang='en', geocode=location_info[i][1]).items(1000)
+               cdc_resp = tweepy.Cursor(api.search_tweets, cdc_query, lang='en', geocode=location_info[i][1]).items(500)
                cdc_rows = []
                for tweet in cdc_resp:
                     cdc_rows.append([re.sub(r'\n|\t', ' ', tweet.text)])
@@ -42,13 +42,13 @@ for i in range(3, len(location_info)):
                complete = True
           except:
                print('waiting on cdc')
-               time.sleep(300)
+               time.sleep(900)
 
      complete = False
      while complete == False:
           try:
                print('mask')
-               mask_resp = tweepy.Cursor(api.search_tweets, mask_query, lang='en', geocode=location_info[i][1]).items(1000)
+               mask_resp = tweepy.Cursor(api.search_tweets, mask_query, lang='en', geocode=location_info[i][1]).items(500)
                mask_rows = []
                for tweet in mask_resp:
                     mask_rows.append([re.sub(r'\n|\t', ' ', tweet.text)])
@@ -58,13 +58,13 @@ for i in range(3, len(location_info)):
                complete = True
           except:
                print('waiting on mask')
-               time.sleep(300)
+               time.sleep(900)
 
      complete = False
      while complete == False:
           try:
                print('vaccine')
-               vaccine_resp = tweepy.Cursor(api.search_tweets, vaccine_query, lang='en', geocode=location_info[i][1]).items(1000)
+               vaccine_resp = tweepy.Cursor(api.search_tweets, vaccine_query, lang='en', geocode=location_info[i][1]).items(500)
                vaccine_rows = []
                for tweet in vaccine_resp:
                     vaccine_rows.append([re.sub(r'\n|\t', ' ', tweet.text)])
@@ -74,13 +74,13 @@ for i in range(3, len(location_info)):
                complete = True
           except:
                print('waiting on vaccine')
-               time.sleep(300)
+               time.sleep(900)
 
      complete = False
      while complete == False:
           try:
                print('trump')
-               trump_resp = tweepy.Cursor(api.search_tweets, trump_query, lang='en', geocode=location_info[i][1]).items(1000)
+               trump_resp = tweepy.Cursor(api.search_tweets, trump_query, lang='en', geocode=location_info[i][1]).items(500)
                trump_rows = []
                for tweet in trump_resp:
                     trump_rows.append([re.sub(r'\n|\t', ' ', tweet.text)])
@@ -90,13 +90,13 @@ for i in range(3, len(location_info)):
                complete = True
           except:
                print('waiting on trump')
-               time.sleep(300)
+               time.sleep(900)
 
      complete = False
      while complete == False:     
           try:
                print('biden')
-               biden_resp = tweepy.Cursor(api.search_tweets, biden_query, lang='en', geocode=location_info[i][1]).items(1000)
+               biden_resp = tweepy.Cursor(api.search_tweets, biden_query, lang='en', geocode=location_info[i][1]).items(500)
                biden_rows = []
                for tweet in biden_resp:
                     biden_rows.append([re.sub(r'\n|\t', ' ', tweet.text)])
@@ -106,7 +106,7 @@ for i in range(3, len(location_info)):
                complete = True
           except:
                print('waiting on biden')
-               time.sleep(300)
+               time.sleep(900)
 
 
 
