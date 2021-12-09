@@ -11,8 +11,8 @@ with open('data/negative.csv', encoding = "ISO-8859-1") as tweet_sentiments:
 with open('data/positive.csv', encoding = "ISO-8859-1") as tweet_sentiments:
     df_pos = pd.read_csv(tweet_sentiments)
     df_pos.columns = ['target', 'id', 'date', 'flag', 'user', 'text']
-raw_positive_tweets = df_pos['text'].head(5000).to_list()
-raw_negative_tweets = df_neg['text'].head(5000).to_list()
+raw_positive_tweets = df_pos['text'].head(50000).to_list()
+raw_negative_tweets = df_neg['text'].head(50000).to_list()
 
 positive_tokens = util.tokenize_tweets(raw_positive_tweets)
 negative_tokens = util.tokenize_tweets(raw_negative_tweets)
@@ -33,9 +33,9 @@ training_dataset = positive_dataset + negative_dataset
 random.shuffle(training_dataset)
 nb_model = NaiveBayesClassifier.train(training_dataset)
 
-header = ['state', 'sentiment']
+header = ['STUSPS', 'VACCINE_SENTIMENT']
 rows = []
-for subdir, dirs, files in os.walk('data/twitter_raw/biden'):
+for subdir, dirs, files in os.walk('data/twitter_raw/vaccine'):
     for filename in files:
         row = []
         filepath = subdir + os.sep + filename
@@ -66,7 +66,7 @@ for subdir, dirs, files in os.walk('data/twitter_raw/biden'):
         rows.append(row)
         print(state)
         
-with open('data/twitter_sentiments/biden.csv', 'w', encoding='utf-8') as file:
+with open('data/twitter_sentiments/vaccine.csv', 'w', encoding='utf-8') as file:
     csv_writer = csv.writer(file)
     csv_writer.writerow(header)
     csv_writer.writerows(rows)
