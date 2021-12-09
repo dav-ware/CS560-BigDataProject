@@ -5,7 +5,7 @@ import tkinter
 # matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
-state_abbreviations = ['AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA','HI','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NYC','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT',
+state_abbreviations = ['AL','AZ','AR','CA','CO','CT','DE','FL','GA','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NYC','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT',
 'VA','WA','WV','WI','WY']
 
 with open('data/covid19_data.csv') as file:
