@@ -1,8 +1,5 @@
 import pandas as pd 
 import geopandas
-import tkinter
-# import matplotlib
-# matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 
 state_abbreviations = ['AL','AZ','AR','CA','CO','CT','DE','FL','GA','ID','IL','IN','IA','KS','KY','LA','ME','MD','MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ','NM','NY','NYC','NC','ND','OH','OK','OR','PA','RI','SC','SD','TN','TX','UT','VT',
